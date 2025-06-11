@@ -7,6 +7,17 @@ plugins {
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
+// Apply Lombok plugin
+apply plugin: 'io.spring.dependency-management' // Ensure this is present
+apply plugin: 'java'
+
+// Lombok specific configuration for annotation processor
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
@@ -20,12 +31,32 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // For validation annotations
+	implementation 'org.springframework.boot:spring-boot-starter-security' // For password encoding
+
 	implementation 'org.liquibase:liquibase-core'
+
+	implementation 'org.postgresql:postgresql'
 	runtimeOnly 'org.postgresql:postgresql'
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// MapStruct
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final' // Use the latest stable version
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.compilerArgs << "-parameters"
 }
