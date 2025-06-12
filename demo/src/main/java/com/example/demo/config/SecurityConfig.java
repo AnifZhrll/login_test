@@ -43,10 +43,5 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // You might also need to configure a basic SecurityFilterChain here
-    // if you don't want Spring Security to block all requests by default.
-    // For a simple register endpoint, we might initially just configure PasswordEncoder
-    // and let Spring Security's auto-config handle general security,
-    // or explicitly allow the /register endpoint.
-    // For now, let's keep it minimal for the password encoder.
+
 }

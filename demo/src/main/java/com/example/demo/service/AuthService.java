@@ -3,7 +3,7 @@ package com.example.demo.service;
 
 import com.example.demo.dto.RegisterRequestDto;
 import com.example.demo.dto.UserResponseDto;
-//import com.example.demo.exception.UserAlreadyExistsException;
+import com.example.demo.exception.UserAlreadyExistsException;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
@@ -27,9 +27,9 @@ public class AuthService {
     @Transactional // Ensures the entire operation is a single transaction
     public UserResponseDto registerUser(RegisterRequestDto registerRequestDto) {
         // 1. Check if username already exists
-//        if (userRepository.existsByUsername(registerRequestDto.getUsername())) {
-//            throw new UserAlreadyExistsException("Username '" + registerRequestDto.getUsername() + "' already exists.");
-//        }
+        if (userRepository.existsByUsername(registerRequestDto.getUsername())) {
+            throw new UserAlreadyExistsException("Username '" + registerRequestDto.getUsername() + "' already exists.");
+        }
 
         // 2. Map DTO to User entity
         User user = userMapper.toEntity(registerRequestDto);
