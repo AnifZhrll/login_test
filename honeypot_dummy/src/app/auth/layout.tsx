@@ -1,20 +1,11 @@
-import { Metadata } from "next";
+import { FC, ReactNode } from "react";
 
-export const metadata: Metadata = {
-    title: "Authentication",
-    description: "Sign in or sign up to access your account",
+interface AuthLayoutProps {
+    children: ReactNode;
 }
 
-export default function RootLayout({
-    children,
-    }: Readonly<{
-    children: React.ReactNode;
-}>) {
-    return (
-        <html lang="en">
-            <body> 
-                {children}
-            </body>
-        </html>
-    )
+const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
+    return <div className="bg-white">{ children }</div>
 }
+
+export default AuthLayout;
