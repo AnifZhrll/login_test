@@ -1,22 +1,19 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
 
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const page = () => {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-  };
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  // };
 
-  const payload = {
-    email: email,
-    password: password,
-  };
+  // const payload = {
+  //   email: email,
+  //   password: password,
+  // };
 
-  fetch("");
+  // fetch("");
 
   return (
     <>
