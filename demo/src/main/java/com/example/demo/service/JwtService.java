@@ -65,13 +65,16 @@ public class JwtService {
     }
 
     public String extractUsername(String token) { // Renamed from getUsernameFromJwtToken for common convention
-        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build()
-                .parseClaimsJws(token).getBody().getSubject();
+//        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build()
+//                .parseClaimsJws(token).getBody().getSubject();
+//
+        return Jwts.parser().setSigningKey(getSigningKey()).build().parseClaimsJws(token)
+                .getBody().getSubject();
     }
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parse(authToken);
+            Jwts.parser().setSigningKey(getSigningKey()).build().parse(authToken);
             return true;
         } catch (MalformedJwtException e) {
             logger.error("Invalid JWT token: {}", e.getMessage());
