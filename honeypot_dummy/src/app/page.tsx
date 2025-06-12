@@ -1,6 +1,24 @@
-import Link from "next/link";
+"use client";
 
-const page = () => {
+import Link from "next/link";
+import { useState } from "react";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+  const handleLogin = (e) => {
+    e.preventDefault();
+  }
+
+  const payload = {
+    email: email,
+    password: password
+  }
+
+  fetch("")
+
+
     return (
         <>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -61,12 +79,12 @@ const page = () => {
           </div>
 
           <div>
-            <button
-              type="submit"
+            <Link
+              href="/home"
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-3 text-md font-semibold text-white shadow-xs hover:bg-indigo-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Login
-            </button>
+            </Link>
           </div>
 
           <div>

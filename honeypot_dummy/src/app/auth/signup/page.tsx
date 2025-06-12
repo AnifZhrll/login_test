@@ -7,7 +7,7 @@
 "use client";
 
 import React, { useState } from "react";
-import "./globals.css";
+import "@/app/globals.css"; 
 import Link from "next/link";
 import axios from "axios";
 import Cookies from "js-cookie";
