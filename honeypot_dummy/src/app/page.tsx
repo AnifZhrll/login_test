@@ -1,3 +1,6 @@
+"use client";
+
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 
 const page = () => {
@@ -14,6 +17,10 @@ const page = () => {
   // };
 
   // fetch("");
+
+  const handleGoogleLogin = () => {
+     signIn("google",{ callbackUrl: "/"})
+  }
 
   return (
     <>
@@ -84,12 +91,12 @@ const page = () => {
             </div>
 
             <div>
-              <Link
-                href="/auth/signin"
+              <button
+                onClick={handleGoogleLogin}
                 className="w-full block p-3 bg-gray-200 text-gray-900 rounded-md text-center hover:bg-gray-300"
               >
                 Login with Google
-              </Link>
+              </button>
             </div>
           </form>
         </div>
