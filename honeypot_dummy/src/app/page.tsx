@@ -3,23 +3,10 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 
-const page = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
-  // const handleLogin = (e) => {
-  //   e.preventDefault();
-  // };
-
-  // const payload = {
-  //   email: email,
-  //   password: password,
-  // };
-
-  // fetch("");
+const LoginPage = () => {
 
   const handleGoogleLogin = () => {
-     signIn("google",{ callbackUrl: "/"})
+     signIn("google",{ callbackUrl: "/home"})
   }
 
   return (
@@ -105,4 +92,4 @@ const page = () => {
   );
 }
 
-export default page;
+export default LoginPage;
