@@ -18,10 +18,17 @@ import com.fasterxml.jackson.databind.ObjectMapper; // For converting error to J
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import com.example.demo.service.JwtAuthFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
+    private final JwtAuthFilter jwtAuthFilter;
+
+    public SecurityConfig(JwtAuthFilter jwtAuthFilter){
+        this.jwtAuthFilter = jwtAuthFilter;
+    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -32,16 +39,15 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for stateless REST APIs
                 .authorizeHttpRequests(authorize -> authorize
-                        // Allow /api/auth/register and /api/auth/login (if you add one) without authentication
-                        .requestMatchers("/api/auth/*").permitAll() // If you plan to add a login endpoint
-                        // All other requests require authentication
+                        .requestMatchers("/api/auth/*").permitAll()
+                        .requestMatchers("/auth/*").permitAll()
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Use stateless sessions for REST APIs
                 );
         return http.build();
     }
-
 
 }
