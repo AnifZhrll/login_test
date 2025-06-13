@@ -1,3 +1,6 @@
+'use client';
+
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 
 const Navbar = () => {
@@ -7,12 +10,15 @@ const Navbar = () => {
         <Link href='/home'>
           Home
         </Link>
-        <Link className="p-2 bg-red-700" href='/'>
+        <button
+         onClick={() => signOut({ callbackUrl: '/' })}
+         className="p-2 bg-red-700 rounded"
+         >
           Log Out
-        </Link>
+        </button>
       </div>
     </div>
   );
 };
 
-export default Navbar
+export default Navbar;
