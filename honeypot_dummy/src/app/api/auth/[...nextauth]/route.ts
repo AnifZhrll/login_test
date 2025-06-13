@@ -10,13 +10,24 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async jwt({ token, account }) {
+      try {
       if (account) {
+
+        console.log("Google account object:", account);
+        console.log("id_token dari Google:", account.id_token);
+        console.log("access_token dari Google:", account.access_token);
+        
         // Kirim ID token dari Google ke Spring Boot
-        const res = await fetch('http://localhost:8080/auth/google/callback', {
+        const res = await fetch('http://localhost:8080/auth/verify', {
           method: 'POST',
-          body: JSON.stringify({ token: account.id_token }),
+          body: JSON.stringify({ token: account.id_token ?? account.access_token}),
           headers: { 'Content-Type': 'application/json' },
         });
+
+        if (!res.ok) {
+          throw new Error("Backend failed to verify token");
+        }
+        console.log("account:", account);
   
         const data = await res.json();
   
@@ -24,6 +35,9 @@ export const authOptions: AuthOptions = {
         token.accessToken = data.jwt;
         token.role = data.role;
       }
+    } catch (error) {
+      console.error("Error in JWT callback:", error);
+    }
       return token;
     },
   
