@@ -16,6 +16,8 @@ export const authOptions: AuthOptions = {
         console.log("id_token dari Google:", account.id_token);
         console.log("access_token dari Google:", account.access_token);
 
+
+        console.log("Mengirim token ke backend:", account.id_token ?? account.access_token);
         
         // Kirim ID token dari Google ke Spring Boot
         const res = await fetch('http://localhost:8080/auth/verify', {
